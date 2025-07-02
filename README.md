@@ -74,3 +74,7 @@ There is also a **Common** project shared by both APIs.
 ## Testing
 
 - Unit tests cover key logic of file generation and sorting handlers.
+
+ ## Performance Benchmarks
+
+This project includes benchmark tests to measure the performance of file generation and sorting operations.
