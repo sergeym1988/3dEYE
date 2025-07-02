@@ -45,7 +45,6 @@ public class SortFileHandler : IRequestHandler<SortFileCommand, bool>
             var chunkSizeBytes = _options.ChunkSizeMb * 1024L * 1024L;
 
             var chunks = await SplitFileIntoChunksAsync(inputPath, tempFolder, chunkSizeBytes, cancellationToken);
-            _logger.LogInformation("The file {FileId} was divided into chunks in {Elapsed:0.00} seconds", fileId, stopwatch.Elapsed.TotalSeconds);
 
             var sortedChunkPaths = new ConcurrentBag<string>();
 
@@ -60,8 +59,6 @@ public class SortFileHandler : IRequestHandler<SortFileCommand, bool>
                 sortedChunkPaths.Add(sortedPath);
                 File.Delete(chunkPath);
             });
-
-            _logger.LogInformation("Chunks were sorted in {Elapsed:0.00} seconds", stopwatch.Elapsed.TotalSeconds);
 
             await MergeSortedChunksAsync(sortedChunkPaths.ToList(), outputPath, cancellationToken);
 
